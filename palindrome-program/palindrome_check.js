@@ -1,7 +1,11 @@
-console.log("Given input = 44");
+let checkNumber = 34;
 
-console.log("Reverse of the input = 44");
+console.log("Given input =" , checkNumber);
 
-console.log("44 is  a palindrome number");
+let reverseOfNumber = 43 ;
+
+console.log("reverse of the input =" , reverseOfNumber);
+
+console.log( checkNumber , "is not a palindrome number");
 
 
