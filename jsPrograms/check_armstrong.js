@@ -34,9 +34,9 @@ console.log( checkNumber , finalValue);
 
 //console.log(powerToUse);
 
-// if(isPalindrome){
-//     console.log( checkNumber , "is a palindrome ");
+// if(isArmstrong){
+//     console.log( checkNumber , "is a armstrong number");
 // } else {
-//     console.log(checkNumber , "is not a palindrone ");
+//     console.log(checkNumber , "is not a armstrong number ");
 // }
 
