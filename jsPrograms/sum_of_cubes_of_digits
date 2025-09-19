@@ -1,29 +1,49 @@
-let remainder;
-let convertedNumber = 0;
- let checkNumber = 567;
+let checkNumber = 370;
+let convertedNumber = 0 ;
+let lastDigit;
+let holdingNumber = checkNumber;
 
-remainder = checkNumber % 10; 
-console.log(remainder);
-convertedNumber = convertedNumber + remainder * remainder * remainder ;
+while(holdingNumber){
+
+    lastDigit = holdingNumber % 10; 
+    convertedNumber = convertedNumber + lastDigit * lastDigit * lastDigit ;
+    holdingNumber = holdingNumber - lastDigit ;
+    holdingNumber = holdingNumber / 10 ;
+    
+    
+    
+}
 console.log(convertedNumber);
-checkNumber = checkNumber - remainder ;
-checkNumber = checkNumber / 10 ;
-console.log(checkNumber);
 
 
-remainder = checkNumber % 10; 
-console.log(remainder);
-convertedNumber = convertedNumber + remainder * remainder * remainder ;
-console.log(convertedNumber);
-checkNumber = checkNumber - remainder ;
-checkNumber = checkNumber / 10 ;
-console.log(checkNumber);
+// let remainder;
+// let convertedNumber = 0;
+//  let checkNumber = 567;
+
+// remainder = checkNumber % 10; 
+// console.log(remainder);
+// convertedNumber = convertedNumber + remainder * remainder * remainder ;
+// console.log(convertedNumber);
+// checkNumber = checkNumber - remainder ;
+// checkNumber = checkNumber / 10 ;
+// console.log(checkNumber);
 
 
-remainder = checkNumber % 10; 
-console.log(remainder);
-convertedNumber = convertedNumber + remainder * remainder * remainder ;
-console.log(convertedNumber);
-checkNumber = checkNumber - remainder ;
-checkNumber = checkNumber / 10 ;
-console.log(checkNumber);
+// remainder = checkNumber % 10; 
+// console.log(remainder);
+// convertedNumber = convertedNumber + remainder * remainder * remainder ;
+// console.log(convertedNumber);
+// checkNumber = checkNumber - remainder ;
+// checkNumber = checkNumber / 10 ;
+// console.log(checkNumber);
+
+
+// remainder = checkNumber % 10; 
+// console.log(remainder);
+// convertedNumber = convertedNumber + remainder * remainder * remainder ;
+// console.log(convertedNumber);
+// checkNumber = checkNumber - remainder ;
+// checkNumber = checkNumber / 10 ;
+// console.log(checkNumber);
+
+
