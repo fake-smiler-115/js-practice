@@ -1,11 +1,19 @@
-let checkNumber = 34;
+const checkNumber = 345;
 
 console.log("Given input =" , checkNumber);
 
-let reverseOfNumber = 43 ;
+const reverseOfNumber = 543;
 
 console.log("reverse of the input =" , reverseOfNumber);
+ 
+let palindromeOrNot ;
 
-console.log( checkNumber , "is not a palindrome number");
+ if(checkNumber === reverseOfNumber){
+    palindromeOrNot = "is a palindrome number";
+ } else {
+    palindromeOrNot = " is not a palindrome number"
+ }
+
+console.log( checkNumber , palindromeOrNot);
 
 
