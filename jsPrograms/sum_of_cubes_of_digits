@@ -1,0 +1,29 @@
+let remainder;
+let convertedNumber = 0;
+ let checkNumber = 567;
+
+remainder = checkNumber % 10; 
+console.log(remainder);
+convertedNumber = convertedNumber + remainder * remainder * remainder ;
+console.log(convertedNumber);
+checkNumber = checkNumber - remainder ;
+checkNumber = checkNumber / 10 ;
+console.log(checkNumber);
+
+
+remainder = checkNumber % 10; 
+console.log(remainder);
+convertedNumber = convertedNumber + remainder * remainder * remainder ;
+console.log(convertedNumber);
+checkNumber = checkNumber - remainder ;
+checkNumber = checkNumber / 10 ;
+console.log(checkNumber);
+
+
+remainder = checkNumber % 10; 
+console.log(remainder);
+convertedNumber = convertedNumber + remainder * remainder * remainder ;
+console.log(convertedNumber);
+checkNumber = checkNumber - remainder ;
+checkNumber = checkNumber / 10 ;
+console.log(checkNumber);
