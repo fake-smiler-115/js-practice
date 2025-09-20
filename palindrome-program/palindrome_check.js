@@ -1,8 +1,22 @@
-const checkNumber = 345;
+const checkNumber = 898;
 
 console.log("Given input =" , checkNumber);
 
-const reverseOfNumber = 543;
+
+let duplicateInput = checkNumber ;
+let reverseOfNumber = 0;
+
+
+while(duplicateInput){
+
+   let lastDigit = duplicateInput % 10;
+
+    duplicateInput = duplicateInput - lastDigit ; 
+    duplicateInput = duplicateInput / 10 ;
+    reverseOfNumber = (reverseOfNumber * 10) + lastDigit ;
+
+}
+
 
 console.log("Reverse of the input =" , reverseOfNumber);
  
@@ -14,8 +28,5 @@ console.log( checkNumber , palindromeOrNot);
 
 
 
-//  if(checkNumber === reverseOfNumber){
-//     palindromeOrNot = "is a palindrome number";
-//  } else {
-//     palindromeOrNot = " is not a palindrome number"
-//  }
+
+ 
