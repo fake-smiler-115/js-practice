@@ -5,27 +5,31 @@ let duplicateInput = input ;
 
 lastDigit = duplicateInput % 10;
 console.log(lastDigit);
+
 duplicateInput = duplicateInput - lastDigit ; 
 duplicateInput = duplicateInput / 10 ;
-let reverseOfNumber = lastDigit ;
+let reverseOfNumber = 0;
+reverseOfNumber = (reverseOfNumber * 10) + lastDigit ;
 
-console.log(duplicateInput);
+
+lastDigit = duplicateInput % 10;
+console.log(lastDigit);
+
+duplicateInput = duplicateInput - lastDigit ; 
+duplicateInput = duplicateInput / 10 ;
+reverseOfNumber = (reverseOfNumber * 10) + lastDigit ;
+
 
 
 lastDigit = duplicateInput % 10;
 console.log(lastDigit);
- duplicateInput = duplicateInput - lastDigit ; 
+
+duplicateInput = duplicateInput - lastDigit ; 
 duplicateInput = duplicateInput / 10 ;
- reverseOfNumber = lastDigit ;
+reverseOfNumber = (reverseOfNumber * 10) + lastDigit ;
 
-console.log(duplicateInput);
 
-lastDigit = duplicateInput % 10;
-console.log(lastDigit);
- duplicateInput = duplicateInput - lastDigit ; 
-duplicateInput = duplicateInput / 10 ;
- reverseOfNumber = lastDigit ;
+console.log(reverseOfNumber);
 
-console.log(duplicateInput);
 
  
