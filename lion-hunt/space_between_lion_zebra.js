@@ -1,10 +1,14 @@
-const testCase1 = "L     Z";
+const testCase1 = "L  L  Z";
 
 let spaceCount = 0;
 
 const testCaseLength = testCase1.length;
 
 for( let indexValue = 0 ; indexValue < testCaseLength ; indexValue++){
+    
+    if (testCase1[indexValue] === 'L'){
+        spaceCount = 0;
+    }
 
     if(testCase1[indexValue] === ' '){
         spaceCount = spaceCount + 1;
