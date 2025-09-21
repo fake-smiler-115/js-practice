@@ -4,7 +4,7 @@
                 longest one's block = 2
 
     55          Binary number = 110111
-                longest one's block = 
+                longest one's block = 3
 
     39          Binary number = 100111 
              longest one's block = 3      
