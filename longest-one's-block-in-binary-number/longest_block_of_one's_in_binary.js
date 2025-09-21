@@ -1,4 +1,8 @@
-console.log("Binary number = 110111");
+const binaryNumber = 110111;
 
-console.log("longest one's block = 3");
+console.log("Binary number =" , binaryNumber);
+
+const longestBlock = 3;
+
+console.log("longest one's block =" , longestBlock );
 
