@@ -1,20 +1,22 @@
-let binaryNumber = 11101;
+let binaryNumber = 10111;
 
 binaryNumber = binaryNumber + " ";
 
-let trueOrFalse = (binaryNumber[0] === '1')  ;
-console.log(trueOrFalse);
+let countOfLongestBlock = 0  ;
 
-trueOrFalse = (binaryNumber[1] === '1')  ;
-console.log(trueOrFalse);
+(binaryNumber[0] === '1') ? countOfLongestBlock++ : countOfLongestBlock = 0   ;
 
-trueOrFalse = (binaryNumber[2] === '1')  ;
-console.log(trueOrFalse);
 
-trueOrFalse = (binaryNumber[3] === '1')  ;
-console.log(trueOrFalse);
+(binaryNumber[1] === '1') ? countOfLongestBlock++ : countOfLongestBlock = 0 ;
 
-trueOrFalse = (binaryNumber[4] === '1')  ;
-console.log(trueOrFalse);
 
+(binaryNumber[2] === '1') ? countOfLongestBlock++ : countOfLongestBlock = 0  ;
+
+
+(binaryNumber[3] === '1') ? countOfLongestBlock++ : countOfLongestBlock = 0  ;
+
+
+(binaryNumber[4] === '1') ? countOfLongestBlock++ : countOfLongestBlock = 0 ;
+
+console.log(countOfLongestBlock);
 
