@@ -1,5 +1,5 @@
 function splitting(word, expectedOutput) {
-  const actualOutput = meregWord(word);
+  const actualOutput = convertWord(word);
   const feedback = actualOutput === expectedOutput ? '👍' : '👎';
   printMessage(word, expectedOutput, actualOutput, feedback);
 }
@@ -11,49 +11,46 @@ function printMessage(word, expectedOutput, actualOutput, feedback) {
   console.log("actual output=", actualOutput);
 }
 
-function meregWord(word) {
+function convertWord(word) {
   let mergedWord = '';
-  let nextCheck = isVowel(word, 0);
   let remaining = '';
+  let mainWord = word;
+  let nextCheck = isVowel(mainWord, 0);
+  let actualOutput = '';
 
-  for (let index = 0; index < checkLength(word); index++) {
+  while (mainWord !== '') {
 
-    if (nextCheck) {
+    for (let index = 0; index < mainWord.length; index++) {
 
-      if (isVowel(word, index) ) {
-        mergedWord += word[index];
-        nextCheck = false;
+      if (nextCheck) {
+        mergedWord += isVowel(mainWord, index) ? mainWord[index] : '';
+        nextCheck = !isVowel(mainWord, index);
+        remaining += isVowel(mainWord, index) ? '' : mainWord[index];
       } else {
-        remaining += ',' + word[index];
+        mergedWord += isVowel(mainWord, index) ? '' : mainWord[index];
+        nextCheck = !isVowel(mainWord, index);
+        remaining += isVowel(mainWord, index) ? mainWord[index] : '';
       }
 
-    } else {
-
-      if(isVowel(word, index)  === false) {
-        mergedWord += word[index];
-        nextCheck = true;
-      } else {
-        remaining = ',' + word[index];
-      } 
     }
 
+    mainWord = remaining;
+    actualOutput += mergedWord + ',';
+    nextCheck = isVowel(mainWord, 0);
+    mergedWord = remaining = '';
   }
 
-  mergedWord += remaining;
-  return mergedWord;
-}
 
-function checkLength(string) {
-  return string.length;
+  return actualOutput;
 }
 
 function isVowel(word, index) {
 
-  if(word[index] === 'a' || word[index] === 'e' || word[index] === 'i') {
+  if (word[index] === 'a' || word[index] === 'e' || word[index] === 'i') {
     return true;
   }
 
-  if(word[index] === 'o' || word[index] === 'u') {
+  if (word[index] === 'o' || word[index] === 'u') {
     return true;
   }
 
@@ -65,3 +62,4 @@ splitting('there', 'tere,h');
 splitting('hello', 'helo,l');
 splitting('abyss', 'ab,y,s,s');
 splitting('this', 'tis,h');
+splitting('thoughtworks', 'togor,huh,t,w,k,s')
