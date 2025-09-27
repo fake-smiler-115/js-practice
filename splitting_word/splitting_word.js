@@ -1,9 +1,4 @@
 function splitting(word, expectedOutput) {
-  const vowels = vowelsInWord(word);
-  const consonants = consonantsInWord(word);
-  console.log(vowels);
-  console.log(consonants);
-  
   const actualOutput = meregWord(word);
   const feedback = actualOutput === expectedOutput ? '👍' : '👎';
   printMessage(word, expectedOutput, actualOutput, feedback);
@@ -17,37 +12,39 @@ function printMessage(word, expectedOutput, actualOutput, feedback) {
 }
 
 function meregWord(word) {
-  return 'ape,p,l';
+  let mergedWord = '';
+  let nextCheck = isVowel(word, 0);
+  let remaining = '';
+
+  for (let index = 0; index < checkLength(word); index++) {
+
+    if (nextCheck) {
+
+      if (isVowel(word, index) ) {
+        mergedWord += word[index];
+        nextCheck = false;
+      } else {
+        remaining += ',' + word[index];
+      }
+
+    } else {
+
+      if(isVowel(word, index)  === false) {
+        mergedWord += word[index];
+        nextCheck = true;
+      } else {
+        remaining = ',' + word[index];
+      } 
+    }
+
+  }
+
+  mergedWord += remaining;
+  return mergedWord;
 }
 
 function checkLength(string) {
   return string.length;
-}
-
-function vowelsInWord(word) {
-  let vowels = '';
-  
-  for (let index = 0; index < checkLength(word); index++) {
-
-    if (isVowel(word, index) ) {
-      vowels = vowels + word[index];
-    }
-  }
-
-  return vowels;
-}
-
-function consonantsInWord(word) {
-  let consonants = '';
-  
-  for (let index = 0; index < checkLength(word); index++) {
-
-    if (!isVowel(word, index) ) {
-      consonants = consonants + word[index];
-    }
-  }
-
-  return consonants;
 }
 
 function isVowel(word, index) {
@@ -65,6 +62,6 @@ function isVowel(word, index) {
 
 splitting('apple', 'ape,p,l');
 splitting('there', 'tere,h');
-// splitting('hello', 'helo,l');
-// splitting('abyss', 'ab,y,s,s');
-// splitting('this', 'tis,h');
+splitting('hello', 'helo,l');
+splitting('abyss', 'ab,y,s,s');
+splitting('this', 'tis,h');
