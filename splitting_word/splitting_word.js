@@ -1,11 +1,11 @@
 function splitting(word, expectedOutput) {
   const actualOutput = convertWord(word);
-  const feedback = actualOutput === expectedOutput ? '👍' : '👎';
-  printMessage(word, expectedOutput, actualOutput, feedback);
+  const emoji = actualOutput === expectedOutput ? '👍' : '👎';
+  printMessage(word, expectedOutput, actualOutput, emoji);
 }
 
-function printMessage(word, expectedOutput, actualOutput, feedback) {
-  console.log('     ', feedback);
+function printMessage(word, expectedOutput, actualOutput, emoji) {
+  console.log('     ', emoji);
   console.log('given word=', word);
   console.log('expected output=', expectedOutput);
   console.log("actual output=", actualOutput);
@@ -35,7 +35,8 @@ function convertWord(word) {
     }
 
     mainWord = remaining;
-    actualOutput += mergedWord + ',';
+    actualOutput += mainWord.length >= 1 ? mergedWord + ',' : mergedWord;
+    // actualOutput += mergedWord + ',';
     nextCheck = isVowel(mainWord, 0);
     mergedWord = remaining = '';
   }
@@ -57,6 +58,7 @@ function isVowel(word, index) {
   return false;
 }
 
+splitting('a', 'a');
 splitting('apple', 'ape,p,l');
 splitting('there', 'tere,h');
 splitting('hello', 'helo,l');
