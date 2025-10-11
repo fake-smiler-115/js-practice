@@ -1,4 +1,4 @@
-const playerName = ['gopi', 'vinay', 'chiru', 'giddi', 'bhathu', 'praveen'];
+const playerName = [];
 const totalAmount = [];
 const lastBetAmount = [];
 const lastOptions = [];
@@ -18,7 +18,7 @@ function getAmount(index) {
 
   if (amount < 10) {
     console.log("❌  MINIMUM AMOUNT SHOULD BE 10");
-   return getAmount(index);
+    return getAmount(index);
   }
 
   return amount;
@@ -34,12 +34,6 @@ function getOption(index) {
   }
 
   return option;
-}
-
-function placeBet(diceNumber) {
-  collectBets();
-  validateBets(diceNumber);
-  printResult(diceNumber);
 }
 
 function printDesign() {
@@ -66,7 +60,7 @@ function validateBets(diceNumber) {
 }
 
 function printResult(diceNumber) {
-    console.log('dice value', diceNumber);
+  console.log('dice value', diceNumber);
 
   for (let index = 0; index < playerName.length; index++) {
     console.log('name', playerName[index]);
@@ -74,7 +68,6 @@ function printResult(diceNumber) {
     console.log('amount placed', lastBetAmount[index]);
     console.log('amount won', totalAmount[index]);
     console.log('___________________________________\n');
-    
   }
 }
 
@@ -84,9 +77,37 @@ function rollDice() {
   return Math.round(Math.random() * (max - min) + min);
 }
 
-function play() {
-  const diceNumber = rollDice();
-  placeBet(diceNumber);
+function tryAgain() {
+  const isPlayAgain = confirm('do you want play again');
+
+  if (isPlayAgain) {
+    play();
+  }
 }
 
-play();
+function play() {
+  const diceNumber = rollDice();
+  collectBets();
+  validateBets(diceNumber);
+  printResult(diceNumber);
+  tryAgain();
+}
+
+function getPlayers() {
+  let noOfPlayers = prompt('Enter numbers of players');
+  noOfPlayers = parseInt(noOfPlayers);
+
+  for (let term = 1; term <= noOfPlayers; term++) {
+    const name = prompt('Enter Player' + term + 'Name : ');
+    playerName.push(name);
+  }
+}
+
+function warningMessage() {
+  console.log('betting is dangenrous to health');
+  confirm('Accept terms & conditions');
+  getPlayers();
+  play();
+}
+
+warningMessage();
