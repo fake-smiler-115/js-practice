@@ -4,18 +4,19 @@ let lastOptions;
 let userName;
 
 function collectBets() {
+  console.clear();
+  console.log('\t\t\t\t\t\t\t\t\t\t\t\t\t Balance : ', balance);
   printDesign();
   lastBetAmount = getAmount();
   lastOptions = getOption();
-  console.clear();
 }
 
 function getAmount() {
-  let amount = prompt(userName + ' please enter the amount');
+  let amount = prompt(userName + ' Please enter the amount');
   amount = parseInt(amount);
 
-  if (amount < 10) {
-    console.log("❌  MINIMUM AMOUNT SHOULD BE 10");
+  if (amount < 10 || amount > balance) {
+    console.log("❌ Amount is less 10 OR greater than balance");
     return getAmount();
   }
 
@@ -23,7 +24,7 @@ function getAmount() {
 }
 
 function getOption() {
-  let option = prompt(userName + ' please enter the option');
+  let option = prompt(userName + ' Please enter the option');
   option = parseInt(option);
 
   if (option < 1 || option > 6) {
@@ -35,36 +36,31 @@ function getOption() {
 }
 
 function validateBets(diceNumber) {
+  console.log('\t\t\t\t\t\t🎲 : ', diceNumber);
+
   if (diceNumber === lastOptions) {
     balance += lastBetAmount;
+    console.log('\t\t\t\t🏆 you won ', lastBetAmount * 2);
+  } else {
+    balance -= lastBetAmount;
+    console.log('\t\t\t\tTry again ! Better luck next time ');
   }
 
-  balance -= lastBetAmount;
 }
 
 function printDesign() {
-  console.log("                        🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏");
-  console.log("                        🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏");
-  console.log("                        🃏🃏🃏  🎲            🃏🃏🃏");
-  console.log("                        🃏🃏🃏            🎲  🃏🃏🃏");
-  console.log("                        🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏");
-  console.log("                        🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏");
+  console.log("\t\t\t\t\t🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏");
+  console.log("\t\t\t\t\t🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏");
+  console.log("\t\t\t\t\t🃏🃏🃏  🎲            🃏🃏🃏");
+  console.log("\t\t\t\t\t🃏🃏🃏            🎲  🃏🃏🃏");
+  console.log("\t\t\t\t\t🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏");
+  console.log("\t\t\t\t\t🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏🃏");
 }
 
 function placeBet(diceNumber) {
   collectBets();
   validateBets(diceNumber);
-  printResult(diceNumber);
   tryAgain();
-}
-
-function printResult(diceNumber) {
-  console.log('dice value', diceNumber);
-
-  if (diceNumber !== lastOptions) {
-    console.log('\t\t\t\t\t\try again ! better luck next time ');
-  }
-  console.log('\t\t\t\t🏆 you won ', lastBetAmount * 2);
 }
 
 function rollDice() {
