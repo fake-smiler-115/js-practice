@@ -148,7 +148,6 @@ function getLocationPoints(size) {
     return getLocationPoints(size);
   }
 
-  console.log(locationsOFShip);
   return locationsOFShip;
 }
 
