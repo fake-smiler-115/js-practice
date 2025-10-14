@@ -37,35 +37,36 @@ function isPresentInLocations(target) {
 
 function enterShipLocation(gridArray) {
   printGrid(gridArray);
-  let coordinate = prompt('Enter the location :');
-  coordinate = parseInt(coordinate);
+  let location = prompt('Enter the location :');
+  location = parseInt(location);
 
-  if (coordinate > 100 || coordinate < 1 || isNaN(coordinate)) {
+  if (location > 100 || location < 1 || isNaN(location)) {
     console.log('Input should be between (1 - 100)');
     return findShipLocation(gridArray)
   }
 
-  return --coordinate;
+  return --location;
 }
 
 function findShipLocation(gridArray) {
-  const coordinate = enterShipLocation(gridArray);
-  const index = coordinate % 10;
-  const arrayNumber = (coordinate - index) / 10;
+  const location = enterShipLocation(gridArray);
+  const index = location % 10;
+  const arrayNumber = (location - index) / 10;
 
-  if (typeof gridArray[arrayNumber][index] !== 'number') {
+  if (typeof gridArray[arrayNumber][index] === 'string') {
     console.log('You already Entered the location');
-    return findShipLocation(gridArray, shipLocations)
+    findShipLocation(gridArray);
   }
 
-  const symbol = isPresentInLocations(coordinate + 1);
+  const symbol = isPresentInLocations(location + 1);
   gridArray[arrayNumber][index] = symbol;
   winOrNot(gridArray);
 }
 
 function winOrNot(gridArray) {
   if (countOfShipsFound === 17) {
-    console.log('Hurry You won');
+    console.log('Hurray You won');
+    console.log(shipLocations);
     return;
   }
 
@@ -157,6 +158,7 @@ function main() {
   shipLocations.push(getLocationPoints(3));
   shipLocations.push(getLocationPoints(4));
   shipLocations.push(getLocationPoints(5));
+  console.log(shipLocations);
 
   makeGrid();
 }
