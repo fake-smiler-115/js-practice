@@ -1,4 +1,5 @@
 let countOfShipsFound = 0;
+const shipLocations = [];
 
 function printGrid(gridArray) {
   const demoArray = [];
@@ -22,9 +23,10 @@ function makeRows(start) {
   return rowArray;
 }
 
-function isCorrectOrNot(array, target) {
-  for (let index = 0; index < 5; index++) {
-    if (array[index].includes(target)) {
+function isPresentInLocations(target) {
+
+  for (let index = 0; index < shipLocations.length; index++) {
+    if (shipLocations[index].includes(target)) {
       countOfShipsFound++;
       return '✅';
     }
@@ -35,38 +37,50 @@ function isCorrectOrNot(array, target) {
 
 function enterShipLocation(gridArray) {
   printGrid(gridArray);
-  let coordinate = prompt('Enter the location (12) :');
+  let coordinate = prompt('Enter the location :');
   coordinate = parseInt(coordinate);
+
+  if (coordinate > 100 || coordinate < 1 || isNaN(coordinate)) {
+    console.log('Input should be between (1 - 100)');
+    return findShipLocation(gridArray)
+  }
+
   return --coordinate;
 }
 
-function findShipLocation(gridArray, shipLocations) {
+function findShipLocation(gridArray) {
   const coordinate = enterShipLocation(gridArray);
   const index = coordinate % 10;
   const arrayNumber = (coordinate - index) / 10;
-  const symbol = isCorrectOrNot(shipLocations, coordinate + 1);
+
+  if (typeof gridArray[arrayNumber][index] !== 'number') {
+    console.log('You already Entered the location');
+    return findShipLocation(gridArray, shipLocations)
+  }
+
+  const symbol = isPresentInLocations(coordinate + 1);
   gridArray[arrayNumber][index] = symbol;
-  winOrNot(gridArray, shipLocations);
+  winOrNot(gridArray);
 }
 
-function winOrNot(gridArray, shipLocations) {
+function winOrNot(gridArray) {
   if (countOfShipsFound === 17) {
     console.log('Hurry You won');
     return;
   }
 
   console.clear();
-  findShipLocation(gridArray, shipLocations);
+  findShipLocation(gridArray);
 }
 
-function makeGrid(shipLocations) {
+function makeGrid() {
   const gridArray = [];
 
   for (let index = 0; index < 10; index++) {
     gridArray.push(makeRows(index * 10));
   }
 
-  findShipLocation(gridArray, shipLocations);
+  findShipLocation(gridArray);
 }
 
 function getRandomPoint() {
@@ -81,16 +95,16 @@ function getRandomPattern() {
   return patterns[index];
 }
 
-function isValidPattern(array, randomPattern) {
+function isValidPattern(locationsOfShip, randomPattern) {
   if (randomPattern === 1 || randomPattern === -1) {
-    return isValidVertical(array);
+    return isValidVertical(locationsOfShip);
   }
 
-  return isValidHorizontal(array);
+  return isValidHorizontal(locationsOfShip);
 }
 
-function isValidHorizontal(array) {
-  const lastValue = array[array.length - 1];
+function isValidHorizontal(locationsOfShip) {
+  const lastValue = locationsOfShip[locationsOfShip.length - 1];
 
   if (lastValue <= 0 || lastValue > 100) {
     return true;
@@ -99,44 +113,53 @@ function isValidHorizontal(array) {
   return false;
 }
 
-function isValidVertical(array) {
-  const remainder = array[0] % 10;
-  const firstBoundary = array[0] - remainder;
-  const lastBoundary = array[0] + (10 - remainder);
-  const lastValue = array[array.length - 1];
+function isValidVertical(locationsOfShip) {
+  const remainder = locationsOfShip[0] % 10;
+  const firstBoundary = locationsOfShip[0] - remainder;
+  const lastBoundary = locationsOfShip[0] + (10 - remainder);
+  const lastValue = locationsOfShip[locationsOfShip.length - 1];
 
   if (lastValue <= firstBoundary || lastValue > lastBoundary) {
     return true;
   }
 }
 
-function getLocationPoints(size) {
-  let point = getRandomPoint();
-  const array = [];
-  const randomPattern = getRandomPattern();
+function generatePattern(size, point, randomPattern) {
+  const locationsOFShip = [];
 
   for (let index = 0; index < size; index++) {
-    array.push(point);
+    if (isPresentInLocations(point) === '✅') {
+      return getLocationPoints(size);
+    }
+
+    locationsOFShip.push(point);
     point += randomPattern;
   }
 
-  if (isValidPattern(array, randomPattern)) {
+  return locationsOFShip;
+}
+
+function getLocationPoints(size) {
+  let point = getRandomPoint();
+  const randomPattern = getRandomPattern();
+  const locationsOFShip = (generatePattern(size, point, randomPattern));
+
+  if (isValidPattern(locationsOFShip, randomPattern)) {
     return getLocationPoints(size);
   }
 
-  console.log(array);
-  return array;
+  console.log(locationsOFShip);
+  return locationsOFShip;
 }
 
-function shipsLocation() {
-  const shipLocations = [];
+function main() {
   shipLocations.push(getLocationPoints(2));
   shipLocations.push(getLocationPoints(3));
   shipLocations.push(getLocationPoints(3));
   shipLocations.push(getLocationPoints(4));
   shipLocations.push(getLocationPoints(5));
 
-  makeGrid(shipLocations);
+  makeGrid();
 }
 
-shipsLocation();
+main();
