@@ -1,0 +1,28 @@
+Ensure that the file path is correct and accessible.
+
+The file must have a .txt extension. 
+
+Each line in the file should contain one flashcard, consisting of a front side (question) and a back side (answer).
+
+The data in the file must follow this exact format on every line:
+ques: front_side_data   ans: back_side_data
+
+
+To generate flashcard content using ChatGPT, copy and paste the following prompt into ChatGPT, then replace the topic as needed. ChatGPT will generate the data in the required format.
+
+Generate flashcards for the topic: <TOPIC>.
+
+Requirements:
+- Number of flashcards: <NUMBER_OF_FLASHCARDS>
+- Difficulty level: <EASY / MEDIUM / HARD>
+- Style: <DEFINITIONS / Q&A / MIXED>
+- Answer length: <SHORT / MEDIUM / DETAILED>
+
+Formatting Rules:
+- Output only plain text.
+- Each flashcard must be on a new line.
+- Follow this exact format:
+  ques: <front_side_data>   ans: <back_side_data>
+- Do not include numbering, headings, or extra text.
+- Question and Answer should be single word or limited words as possible
+

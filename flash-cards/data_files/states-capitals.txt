@@ -1,0 +1,3 @@
+ques: andhra  ans: amaravati
+ques: karnataka  ans: banglore
+ques: bihar  ans: patna
