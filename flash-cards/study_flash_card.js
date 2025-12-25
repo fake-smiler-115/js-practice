@@ -35,13 +35,27 @@ const parseCard = (card) => {
   return [question[1], answer[1].trim()];
 };
 
-const examineCards = (cards, eachAttempts,findLocation) => {
+const calculateTime = (start,end) => Math.round((end- start) / 1000);
+
+const displayQuestion = (question,index) => 
+  console.log(index + " :  ", question);
+
+const getResponseToQuestion = () => {
+  const start = Date.now();
+  const answer = prompt("answer :");
+  const end = Date.now();
+  return [answer,start,end];
+}
+
+const examineCards = (cards, eachAttempts,findLocation,timeTaken) => {
   const wrongAnsweredCards = [];
   for (let index = 0; index < cards.length; index++) {
-    eachAttempts[findLocation(cards[index])]++;
+    const cardLocation = findLocation(cards[index]);
+    eachAttempts[cardLocation]++;
     const [question, expectedAnswer] = parseCard(cards[index]);
-    console.log(index + 1 + " :  ", question);
-    const answer = prompt("answer :");
+    displayQuestion(question, index + 1);
+    const [answer , start,end] = getResponseToQuestion();
+    timeTaken[cardLocation] += calculateTime(start,end);
     evaluateAnswer(answer, expectedAnswer, cards[index], wrongAnsweredCards);
   }
 
@@ -57,13 +71,14 @@ const readFlashCards = (fileName) => {
 
 const conductExam = (cards) => {
   const eachAttempts = "0".repeat(cards.length).split("").map((ele) => +ele);
+  const timeTaken = "0".repeat(cards.length).split("").map((ele) => +ele);
   let cardsToAnswer = [...cards];
   const findLocation = locations(cardsToAnswer);
   while (cardsToAnswer.length !== 0) {
-    cardsToAnswer = examineCards(cardsToAnswer, eachAttempts,findLocation);
+    cardsToAnswer = examineCards(cardsToAnswer, eachAttempts,findLocation,timeTaken);
   }
 
-  return eachAttempts;
+  return [eachAttempts,timeTaken];
 }
 
 const main = () => {
@@ -71,8 +86,9 @@ const main = () => {
   printDeckList(deckList);
   const choice = +prompt("Enter The Deck Option :");
   const  cards = readFlashCards(deckList[choice - 1]);
-  const eachAttempts = conductExam(cards);
+  const [eachAttempts,timeTaken] = conductExam(cards);
   console.log(eachAttempts);
+  console.log(timeTaken);
 };
 
 main();
