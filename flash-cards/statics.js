@@ -10,7 +10,7 @@ const getPattern = (number, index) => {
   return "   ";
 };
 
-export const getVisual = (numbers) => {
+const getVisual = (numbers) => {
   const visual = [];
 
   for (let index = Math.max(...numbers); index >= 0; index--) {
@@ -24,12 +24,22 @@ export const getVisual = (numbers) => {
   return visual;
 };
 
-export const printPattern = (pattern) => {
-  console.clear();
+const printPattern = (pattern) => {
   for (let index = 0; index < pattern.length; index++) {
-    console.log(pattern[index]);
+    console.log('\t\t' + pattern[index]);
   }
-
 };
 
-printPattern(getVisual([1,8,14,6]));
+export const printStatics = (attempts, timeTaken) => {
+  console.clear();
+
+  console.log('NUMBER OF ATTEMPTS FOR EACH QUESTION :\n');
+  printPattern(getVisual(attempts));
+  const totalAttempts = attempts.reduce((sum ,value) => sum + value ,0)
+  console.log('\n TOTAL ATTEMPTS = ', totalAttempts);
+
+  console.log('\n\n\n TIME TAKEN FOR EACH QUESTION (SECONDS) : \n');
+  printPattern(getVisual(timeTaken));
+  const totalTime = timeTaken.reduce((sum ,value) => sum + value ,0)
+  console.log('\n TOTAL TIME = ', totalTime);
+}

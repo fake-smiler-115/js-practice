@@ -1,4 +1,4 @@
-import { getVisual, printPattern } from "./statics.js";
+import {printStatics } from "./statics.js";
 
 const getDeckList = () => {
   const data = Deno.readTextFileSync("deck_list.txt");
@@ -89,7 +89,7 @@ const main = () => {
   const choice = +prompt("Enter The Deck Option :");
   const  cards = readFlashCards(deckList[choice - 1]);
   const [eachAttempts,timeTaken] = conductExam(cards);
-  printPattern(getVisual(eachAttempts));
+  printStatics(eachAttempts, timeTaken);
 };
 
 main();
