@@ -6,3 +6,7 @@ js.txt
 country_capitals.txt
 Something.txt
 sta-cap.txt
+intern_state.txt
+states_2.txt
+hi.txt
+jvhdwhs.txt

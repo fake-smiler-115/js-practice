@@ -50,12 +50,10 @@ const dataCreateMode = (mode) => {
   }
 };
 
-const main = () => {
+export const createFlashCards = () => {
   console.clear();
   console.log("           1 : ENTER DATA MANUALLY");
   console.log("           2 : TO IMPORT DATA FILE");
   const mode = +prompt("");
   dataCreateMode(mode);
 };
-
-main();
