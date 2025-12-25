@@ -1,3 +1,0 @@
-ques: sivaji  ans: asdfg
-ques: gopi  ans: boy
-ques: chiru  ans: kojja

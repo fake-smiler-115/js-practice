@@ -13,13 +13,19 @@ const printDeckList = (deck_list) => {
   }
 };
 
+const locations = (cards) => {
+  return function b(card) {
+    return cards.findIndex(item => item === card);
+  };
+};
+
 const evaluateAnswer = (answer, expectedAnswer, card, wrongAnsweredCards) => {
+  console.clear();
   if (answer !== expectedAnswer) {
     console.log("It Is Wrong ❌");
     wrongAnsweredCards.push(card);
     return;
   }
-  console.clear();
   console.log("It Is Right ✅");
 };
 
@@ -29,9 +35,10 @@ const parseCard = (card) => {
   return [question[1], answer[1].trim()];
 };
 
-const examineCards = (cards) => {
+const examineCards = (cards, eachAttempts,findLocation) => {
   const wrongAnsweredCards = [];
   for (let index = 0; index < cards.length; index++) {
+    eachAttempts[findLocation(cards[index])]++;
     const [question, expectedAnswer] = parseCard(cards[index]);
     console.log(index + 1 + " :  ", question);
     const answer = prompt("answer :");
@@ -45,17 +52,27 @@ const readFlashCards = (fileName) => {
   const fileData = Deno.readTextFileSync("data_files/" + fileName);
   const cards = fileData.split("\n");
   cards.pop();
-  let cardsToAnswer = cards;
-  while (cardsToAnswer.length !== 0) {
-    cardsToAnswer = examineCards(cardsToAnswer);
-  }
+  return cards;
 };
+
+const conductExam = (cards) => {
+  const eachAttempts = "0".repeat(cards.length).split("").map((ele) => +ele);
+  let cardsToAnswer = [...cards];
+  const findLocation = locations(cardsToAnswer);
+  while (cardsToAnswer.length !== 0) {
+    cardsToAnswer = examineCards(cardsToAnswer, eachAttempts,findLocation);
+  }
+
+  return eachAttempts;
+}
 
 const main = () => {
   const deckList = getDeckList();
   printDeckList(deckList);
   const choice = +prompt("Enter The Deck Option :");
-  readFlashCards(deckList[choice - 1]);
+  const  cards = readFlashCards(deckList[choice - 1]);
+  const eachAttempts = conductExam(cards);
+  console.log(eachAttempts);
 };
 
 main();

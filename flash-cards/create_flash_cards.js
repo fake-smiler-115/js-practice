@@ -1,6 +1,8 @@
 const getDeckName = () => {
   const deckName = prompt("Enter The Deck Name");
-  Deno.writeTextFileSync('deck_list.txt', deckName + '.txt\n', { append: true });
+  Deno.writeTextFileSync("deck_list.txt", deckName + ".txt\n", {
+    append: true,
+  });
   return deckName + ".txt";
 };
 
@@ -8,8 +10,10 @@ const formatDataToAppend = (question, answer) =>
   "ques: " + question + "  ans: " + answer + "\n";
 
 const appendToFile = (file_name, dataToAppend) => {
-  Deno.writeTextFileSync('data_files/' + file_name, dataToAppend, { append: true });
-}
+  Deno.writeTextFileSync("data_files/" + file_name, dataToAppend, {
+    append: true,
+  });
+};
 
 const getCardDetails = (file_name) => {
   console.clear();
@@ -37,8 +41,8 @@ const dataCreateMode = (mode) => {
     displayInstructions();
     const path = prompt("Enter The Path Correctly");
     const deckName = getDeckName();
-    const dataToAppend = Deno.readTextFileSync('/' + path);
-    appendToFile(deckName,dataToAppend);
+    const dataToAppend = Deno.readTextFileSync("/" + path);
+    appendToFile(deckName, dataToAppend);
   }
 };
 
