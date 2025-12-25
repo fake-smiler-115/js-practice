@@ -38,8 +38,12 @@ const dataCreateMode = (mode) => {
   }
 
   if (mode === 2) {
-    displayInstructions();
+    console.log('\n ENTER "help" FOR  HELP TO IMPORT DATA FILE \n\n');
     const path = prompt("Enter The Path Correctly");
+    if (path === 'help') {
+      displayInstructions();
+      return dataCreateMode(2);
+    }
     const deckName = getDeckName();
     const dataToAppend = Deno.readTextFileSync("/" + path);
     appendToFile(deckName, dataToAppend);
@@ -48,8 +52,8 @@ const dataCreateMode = (mode) => {
 
 const main = () => {
   console.clear();
-  console.log("           ENTER 1 TO ENTER DATA MANUALLY");
-  console.log("           ENTER 2 TO IMPORT DATA FILE");
+  console.log("           1 : ENTER DATA MANUALLY");
+  console.log("           2 : TO IMPORT DATA FILE");
   const mode = +prompt("");
   dataCreateMode(mode);
 };

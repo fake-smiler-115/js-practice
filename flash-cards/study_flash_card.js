@@ -1,4 +1,4 @@
-import {printStatics } from "./statics.js";
+import { calculateStatics } from "./statics.js";
 
 const getDeckList = () => {
   const data = Deno.readTextFileSync("deck_list.txt");
@@ -17,7 +17,7 @@ const printDeckList = (deck_list) => {
 
 const locations = (cards) => {
   return function b(card) {
-    return cards.findIndex(item => item === card);
+    return cards.findIndex((item) => item === card);
   };
 };
 
@@ -37,27 +37,27 @@ const parseCard = (card) => {
   return [question[1], answer[1].trim()];
 };
 
-const calculateTime = (start,end) => Math.round((end- start) / 1000);
+const calculateTime = (start, end) => Math.round((end - start) / 1000);
 
-const displayQuestion = (question,index) => 
+const displayQuestion = (question, index) =>
   console.log(index + " :  ", question);
 
 const getResponseToQuestion = () => {
   const start = Date.now();
   const answer = prompt("answer :");
   const end = Date.now();
-  return [answer,start,end];
-}
+  return [answer, start, end];
+};
 
-const examineCards = (cards, eachAttempts,findLocation,timeTaken) => {
+const examineCards = (cards, eachAttempts, findLocation, timeTaken) => {
   const wrongAnsweredCards = [];
   for (let index = 0; index < cards.length; index++) {
     const cardLocation = findLocation(cards[index]);
     eachAttempts[cardLocation]++;
     const [question, expectedAnswer] = parseCard(cards[index]);
     displayQuestion(question, index + 1);
-    const [answer , start,end] = getResponseToQuestion();
-    timeTaken[cardLocation] += calculateTime(start,end);
+    const [answer, start, end] = getResponseToQuestion();
+    timeTaken[cardLocation] += calculateTime(start, end);
     evaluateAnswer(answer, expectedAnswer, cards[index], wrongAnsweredCards);
   }
 
@@ -77,19 +77,26 @@ const conductExam = (cards) => {
   let cardsToAnswer = [...cards];
   const findLocation = locations(cardsToAnswer);
   while (cardsToAnswer.length !== 0) {
-    cardsToAnswer = examineCards(cardsToAnswer, eachAttempts,findLocation,timeTaken);
+    cardsToAnswer = examineCards(cardsToAnswer,eachAttempts,findLocation,timeTaken);
   }
 
-  return [eachAttempts,timeTaken];
+  return [eachAttempts, timeTaken];
+};
+
+const saveToHistory = (fileName, attempts,timeTaken,score) => {
+  let data = 'file :' + fileName + ' attempts :' + attempts.join(',');
+  data += ' time :' + timeTaken.join(',') + ' score :' + score + '\n';
+  Deno.writeTextFileSync("history.txt", data, { append: true });
 }
 
 const main = () => {
   const deckList = getDeckList();
   printDeckList(deckList);
   const choice = +prompt("Enter The Deck Option :");
-  const  cards = readFlashCards(deckList[choice - 1]);
-  const [eachAttempts,timeTaken] = conductExam(cards);
-  printStatics(eachAttempts, timeTaken);
+  const cards = readFlashCards(deckList[choice - 1]);
+  const [eachAttempts, timeTaken] = conductExam(cards);
+  const score = calculateStatics(eachAttempts, timeTaken);
+  saveToHistory(deckList[choice - 1], eachAttempts, timeTaken , score);
 };
 
 main();
