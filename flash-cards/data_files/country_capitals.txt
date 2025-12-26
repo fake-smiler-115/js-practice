@@ -1,2 +1,0 @@
-ques: India  ans: Delhi
-ques: shrilanka  ans: shrilanka
